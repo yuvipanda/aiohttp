@@ -248,21 +248,15 @@ def basicauth_from_netrc(netrc_obj: netrc.netrc, host: str) -> Optional[BasicAut
     if auth_from_netrc is None:
         return None
 
-    login, account, password = auth_from_netrc
-
-    # TODO(PY311): username = login or account
-    # Up to python 3.10, account could be None if not specified,
-    # and login will be empty string if not specified. From 3.11,
-    # login and account will be empty string if not specified.
-    # If login is present, we prefer that over account as username
-    username = login if (login or account is None) else account
+    # second parameter is 'account', which we ignore - it seems primarily useful for FTP
+    login, _, password = auth_from_netrc
 
     # TODO(PY311): Remove this, as password will be empty string
     # if not specified
     if password is None:
         password = ""
 
-    return BasicAuth(username, password)
+    return BasicAuth(login, password)
 
 
 def proxies_from_env() -> Dict[str, ProxyInfo]:
