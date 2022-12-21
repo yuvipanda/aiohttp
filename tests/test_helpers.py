@@ -1006,7 +1006,7 @@ def test_netrc_from_env(netrc_contents: str, hostname: str, expected_username: s
         (
             "machine example.com account username password pass\n",
             "example.com",
-            helpers.BasicAuth("username", "pass"),
+            helpers.BasicAuth("", "pass"),
         ),
         (
             "machine example.com password pass\n",
